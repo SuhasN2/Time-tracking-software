@@ -11,15 +11,18 @@ def main():
     commit_common = ""
 
     #* open tasks.json --------------------------------
- 
-    with open(r"code\tasks.json", "r") as file:
-        TASKS = json.load(file)
+    try:
+        with open(r"code\tasks.json", "r") as file:
+            TASKS = json.load(file)
+            print (TASKS)
+    except FileNotFoundError:
+        print (f"tasks.json not found\n {FileNotFoundError}")
 
-    def log_data(): #! not working yet
+    def log_data(context):
         global Temporary_start_time, Temporary_end_time, commit_common
 
         # Make a copy of the current task data
-        current_task_data = TASKS[(list(TASKS.keys())[CURRENT_TASK])]
+        current_task_data = context[(list(context.keys())[CURRENT_TASK])]
         current_task_data["logs"].append({
             "start time": Temporary_start_time,
             "end time": Temporary_end_time,
