@@ -1,13 +1,16 @@
 {
-    "main_task":{
+    "main_task": {
         "number": 0,
-        "logs":
-        {
-            "start_time": "2024-03-15 20:05:16.771881",
-            "end_time": "2024-03-15 18:38:56.855881",
-            "commit Comment" : "the is  a Comment"
-        },
-        "Total time in minutes": 0
-
-    }
-}
+        "logs": [
+            {
+                "start_time": "2024-03-15 20:05:16.771881",
+                "end_time": "2024-03-15 18:38:56.855881",
+                "commit_Comment": "the is  a Comment"
+            },
+            {
+                "start_time": "2024-03-15 20:03:16.775881",
+                "end_time": "2024-13-15 18:22:56.855581",
+                "commit_Comment": "the is  a Comment"
+            },
+            {
+                "start_time": 

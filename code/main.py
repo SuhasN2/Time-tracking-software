@@ -8,7 +8,6 @@ def main():
     CURRENT_TASK = 0
     Temporary_start_time = ""
     Temporary_end_time = ""
-    commit_common = ""
 
     #* open tasks.json --------------------------------
     try:
@@ -18,23 +17,30 @@ def main():
     except FileNotFoundError:
         print (f"tasks.json not found\n {FileNotFoundError}")
 
-    def log_data(context):
-        global Temporary_start_time, Temporary_end_time, commit_common
+    def log_data(tasks,commit_common_text): #* The error "NameError: name 'TASKS' is not defined"
+        #? indicates the log_data function can't find the variable tasks
+        global Temporary_start_time, Temporary_end_time
+        
+        data = tasks
+        current_task_data = (list(data.keys())[CURRENT_TASK]) # Find the Current task
+        
 
-        # Make a copy of the current task data
-        current_task_data = context[(list(context.keys())[CURRENT_TASK])]
-        current_task_data["logs"].append({
-            "start time": Temporary_start_time,
-            "end time": Temporary_end_time,
-            "commit common": commit_common.get()
-        })
+        print (":-",current_task_data,commit_common_text)
 
-        # Update the TASKS dictionary with the modified task data
-        TASKS[(list(TASKS.keys())[CURRENT_TASK])] = current_task_data
+        new_log = {
+        "start_time": Temporary_start_time,
+        "end_time": Temporary_end_time,
+        "commit_comment": commit_common_text
+        }
+        
+        data[current_task_data]["logs"].append(new_log) #! For some reason interpreter is thinking 
+        #! it's a dictionary
 
-        # Save the updated TASKS dictionary to the file
+        # Save the updated tasks dictionary to the file
         with open(r"code\tasks.json", "w") as file:
-            json.dump(TASKS, file)
+            json.dump(data, file, indent=4)
+        
+        tasks = data 
 
     def start_timer():
         global Temporary_start_time 
@@ -45,13 +51,13 @@ def main():
     def end_timer():
         global Temporary_end_time, commit_common
         Temporary_end_time = datetime.today()
-        print(Temporary_end_time)
         popup_window = tk.Toplevel()
         ttk.Label(popup_window, text="brief Description of Completed task").grid(columnspan=2,row=0,column=0)
         commit_common = ttk.Entry(popup_window,)
-        commit_common.grid(column=0,row=1) 
-        print(commit_common)
-        ttk.Button(popup_window, text="enter",command=lambda:log_data(TASKS)).grid(column=1,row=1)  
+        commit_common.grid(column=0,row=1)
+        commit_common_text = commit_common.get()
+
+        ttk.Button(popup_window, text="enter",command=lambda:log_data(TASKS,commit_common_text)).grid(column=1,row=1)  
         
     #* define screen --------------------------------
     root =  tk.Tk()
