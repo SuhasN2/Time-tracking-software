@@ -15,7 +15,7 @@ def main():
             TASKS = json.load(file)
             print (TASKS)
     except FileNotFoundError:
-        print (f"tasks.json not found\n {FileNotFoundError}")
+        print (f"tasks.json not found\n {FileNotFoundError}")      
 
     def log_data(tasks,commit_common_text): #* The error "NameError: name 'TASKS' is not defined"
         #? indicates the log_data function can't find the variable tasks
@@ -30,34 +30,39 @@ def main():
         new_log = {
         "start_time": Temporary_start_time,
         "end_time": Temporary_end_time,
-        "commit_comment": commit_common_text
+        "commit_comment": commit_common_text.get()
         }
         
-        data[current_task_data]["logs"].append(new_log) #! For some reason interpreter is thinking 
-        #! it's a dictionary
+        data[current_task_data]["logs"].append(new_log) #* For some reason interpreter is thinking 
+        print (data)
+        #* it's a dictionary
 
         # Save the updated tasks dictionary to the file
-        with open(r"code\tasks.json", "w") as file:
-            json.dump(data, file, indent=4)
-        
-        tasks = data 
+        print("looding",end="\r")
+        try:
+            with open(r"code\tasks.json", "w") as file:
+                json.dump(data, file, indent=4)
+            print("Data saved successfully to task.json")
+        except Exception as e:
+            print("Error saving data:", e)
+
+  
 
     def start_timer():
         global Temporary_start_time 
-        Temporary_start_time = datetime.today()
+        Temporary_start_time = str(datetime.today())
         print(Temporary_start_time)
         ttk.Button(bottom_frame, text="end", command=end_timer ).grid(column=2,row=0)
 
     def end_timer():
         global Temporary_end_time, commit_common
-        Temporary_end_time = datetime.today()
+        Temporary_end_time = str(datetime.today())
         popup_window = tk.Toplevel()
         ttk.Label(popup_window, text="brief Description of Completed task").grid(columnspan=2,row=0,column=0)
         commit_common = ttk.Entry(popup_window,)
         commit_common.grid(column=0,row=1)
-        commit_common_text = commit_common.get()
 
-        ttk.Button(popup_window, text="enter",command=lambda:log_data(TASKS,commit_common_text)).grid(column=1,row=1)  
+        ttk.Button(popup_window, text="enter",command=lambda:log_data(TASKS,commit_common)).grid(column=1,row=1)  
         
     #* define screen --------------------------------
     root =  tk.Tk()
@@ -70,8 +75,7 @@ def main():
 
     root.mainloop()
     
-    #todo: Ability to Create a new task new entry window
-    #todo: Ability to Log time
+    #todo: Close window automatically when clicked enter
 
 if __name__ == '__main__':
     main()
