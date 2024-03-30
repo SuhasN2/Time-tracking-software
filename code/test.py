@@ -1,2 +1,15 @@
-import random 
-while eval(input('p')):print(*[('C:'+random.choice('rps')+'\nP:'+input('RPS:').lower()+'\n'+(['T\n','W\n','L\n'][((ord(random.choice('rps'))-ord('r'))%3 - (ord(input('RPS:').lower())-ord('r')))%3])) if eval(input('a(y/n):')) else exit()])
+from tkinter import *
+from tkinter import ttk
+
+root = Tk()
+
+# Correct usage of StringVar
+my_string_var = StringVar()
+my_string_var.set("Hello, world!")
+
+print(type(my_string_var.get()))
+# Example widget using StringVar
+my_label = ttk.Label(root, textvariable=my_string_var)
+my_label.grid(row=0, column=0)
+
+root.mainloop()

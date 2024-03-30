@@ -4,8 +4,6 @@ from datetime import datetime
 import json 
 
 def main():
-
-    CURRENT_TASK = 0
     Temporary_start_time = ""
     Temporary_end_time = ""
 
@@ -25,18 +23,13 @@ def main():
         global Temporary_start_time, Temporary_end_time
         
         data = tasks
-        current_task_data = (list(data.keys())[CURRENT_TASK]) # Find the Current task
-        
-
-        print (":-",current_task_data,commit_common_text)
-
         new_log = {
         "start_time": Temporary_start_time,
         "end_time": Temporary_end_time,
         "commit_comment": commit_common_text.get()
         }
         
-        data[current_task_data]["logs"].append(new_log) #* For some reason interpreter is thinking 
+        data[Task_selected.get()]["logs"].append(new_log) #* For some reason interpreter is thinking 
         print (data)
         #* it's a dictionary
 
@@ -74,16 +67,16 @@ def main():
         
     # define screen --------------------------------
     root =  tk.Tk()
+    Task_selected = tk.StringVar()
     root.configure(padx=32,pady=8)
-    
     # define frame --------------------------------
     bottom_frame = ttk.Frame(root, name="time loging").grid(column=0,row=0)
-    ttk.Label(bottom_frame, text=(list(TASKS.keys())[CURRENT_TASK])).grid(column=1,row=0,padx=10,pady=10)
+    ttk.OptionMenu(bottom_frame,Task_selected,*list(TASKS.keys())).grid(bottom_frame,column=1,row=0,padx=10,pady=10)
     ttk.Button(bottom_frame, text="Start", command=start_timer ).grid(column=2,row=0)
 
     root.mainloop()
     
     #todo: Close window automatically when clicked enter
-
+    #todo: 
 if __name__ == '__main__':
     main()
