@@ -4,8 +4,6 @@ from datetime import datetime
 import json 
 
 def main():
-    Temporary_start_time = ""
-    Temporary_end_time = ""
 
     #* open tasks.json --------------------------------
     try:
@@ -20,12 +18,12 @@ def main():
 
     def log_data(tasks,commit_common_text,popup_window): #* The error "NameError: name 'TASKS' is not defined"
         #? indicates the log_data function can't find the variable tasks
-        global Temporary_start_time, Temporary_end_time
+        global task_start_time, task_end_time
         
         data = tasks
         new_log = {
-        "start_time": Temporary_start_time,
-        "end_time": Temporary_end_time,
+        "start_time": task_start_time,
+        "end_time": task_end_time,
         "commit_comment": commit_common_text.get()
         }
         
@@ -43,21 +41,21 @@ def main():
             print("Error saving data:", e)
         try:
             popup_window.destroy()
-        except NameError:
+        except:
             print("Error(virtual cannot be closed)")
         Reset_logs()
         print("log data Finished successfully")
 
 
     def start_timer():
-        global Temporary_start_time 
-        Temporary_start_time = str(datetime.today())
-        print(Temporary_start_time)
+        global task_start_time 
+        task_start_time = str(datetime.today())
+        print(task_start_time)
         ttk.Button(bottom_frame, text="end", command=end_timer ).grid(column=2,row=0)
 
     def end_timer():
-        global Temporary_end_time, commit_common
-        Temporary_end_time = str(datetime.today())
+        global task_end_time, commit_common
+        task_end_time = str(datetime.today())
         popup_window = tk.Toplevel()
         ttk.Label(popup_window, text="brief Description of Completed task").grid(columnspan=2,row=0,column=0)
         commit_common = ttk.Entry(popup_window)
@@ -69,14 +67,16 @@ def main():
     root =  tk.Tk()
     Task_selected = tk.StringVar()
     root.configure(padx=32,pady=8)
+    task_start_time = ""
+    task_end_time = ""
+
     # define frame --------------------------------
     bottom_frame = ttk.Frame(root, name="time loging").grid(column=0,row=0)
     ttk.OptionMenu(bottom_frame,Task_selected,*list(TASKS.keys())).grid(bottom_frame,column=1,row=0,padx=10,pady=10)
     ttk.Button(bottom_frame, text="Start", command=start_timer ).grid(column=2,row=0)
 
     root.mainloop()
-    
-    #todo: Close window automatically when clicked enter
-    #todo: 
+    #todo Break down larger functions into smaller,
+    #* Close window automatically when clicked enter
 if __name__ == '__main__':
     main()
