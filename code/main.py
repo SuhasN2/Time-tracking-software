@@ -15,9 +15,12 @@ def main():
             TASKS = json.load(file)
             print (TASKS)
     except FileNotFoundError:
-        print (f"tasks.json not found\n {FileNotFoundError}")      
+        print (f"tasks.json not found\n {FileNotFoundError}")    
 
-    def log_data(tasks,commit_common_text): #* The error "NameError: name 'TASKS' is not defined"
+    def Reset_logs():
+        ttk.Button(bottom_frame, text="Start", command=start_timer ).grid(column=2,row=0)
+
+    def log_data(tasks,commit_common_text,popup_window): #* The error "NameError: name 'TASKS' is not defined"
         #? indicates the log_data function can't find the variable tasks
         global Temporary_start_time, Temporary_end_time
         
@@ -45,8 +48,13 @@ def main():
             print("Data saved successfully to task.json")
         except Exception as e:
             print("Error saving data:", e)
+        try:
+            popup_window.destroy()
+        except NameError:
+            print("Error(virtual cannot be closed)")
+        Reset_logs()
+        print("log data Finished successfully")
 
-  
 
     def start_timer():
         global Temporary_start_time 
@@ -59,16 +67,16 @@ def main():
         Temporary_end_time = str(datetime.today())
         popup_window = tk.Toplevel()
         ttk.Label(popup_window, text="brief Description of Completed task").grid(columnspan=2,row=0,column=0)
-        commit_common = ttk.Entry(popup_window,)
+        commit_common = ttk.Entry(popup_window)
         commit_common.grid(column=0,row=1)
 
-        ttk.Button(popup_window, text="enter",command=lambda:log_data(TASKS,commit_common)).grid(column=1,row=1)  
+        ttk.Button(popup_window, text="enter",command=lambda:log_data(TASKS,commit_common,popup_window)).grid(column=1,row=1)
         
-    #* define screen --------------------------------
+    # define screen --------------------------------
     root =  tk.Tk()
     root.configure(padx=32,pady=8)
     
-    #* define frame --------------------------------
+    # define frame --------------------------------
     bottom_frame = ttk.Frame(root, name="time loging").grid(column=0,row=0)
     ttk.Label(bottom_frame, text=(list(TASKS.keys())[CURRENT_TASK])).grid(column=1,row=0,padx=10,pady=10)
     ttk.Button(bottom_frame, text="Start", command=start_timer ).grid(column=2,row=0)
