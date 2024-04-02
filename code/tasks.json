@@ -1,6 +1,7 @@
 {
     "main_task": {
         "number": 0,
+        "Time spent on ": 11.025257,
         "logs": [
             {
                 "start_time": "2024-03-15 20:05:16.771881",
@@ -8,44 +9,35 @@
                 "commit_Comment": "this is  a Comment"
             },
             {
-                "start_time": "2024-03-30 13:10:10.908664",
-                "end_time": "2024-03-30 13:10:11.805020",
-                "commit_comment": "lol"
+                "start_time": "2024-04-02 10:01:27.447781",
+                "end_time": "2024-04-02 10:01:32.457210",
+                "commit_comment": "t1"
             },
             {
-                "start_time": "2024-03-30 13:11:26.678440",
-                "end_time": "2024-03-30 13:11:29.357911",
-                "commit_comment": "test 1 With multiple tasks "
+                "start_time": "2024-04-02 10:02:06.801281",
+                "end_time": "2024-04-02 10:02:09.353203",
+                "commit_comment": "t2"
             },
             {
-                "start_time": "2024-03-30 13:26:35.909312",
-                "end_time": "2024-03-30 13:26:36.564107",
-                "commit_comment": "huv"
+                "start_time": "2024-04-02 10:14:01.177021",
+                "end_time": "2024-04-02 10:14:03.280817",
+                "commit_comment": "op"
             },
             {
-                "start_time": "2024-03-30 13:44:41.445204",
-                "end_time": "2024-03-30 13:44:43.356096",
-                "commit_comment": "lol"
+                "start_time": "2024-04-02 10:19:32.976699",
+                "end_time": "2024-04-02 10:19:33.760658",
+                "commit_comment": "ee"
             },
             {
-                "start_time": "2024-03-30 13:46:28.701382",
-                "end_time": "2024-03-30 13:46:29.572802",
-                "commit_comment": "pop"
-            },
-            {
-                "start_time": "2024-03-30 13:47:25.060622",
-                "end_time": "2024-03-30 13:47:29.693165",
-                "commit_comment": "g"
-            },
-            {
-                "start_time": "2024-03-30 13:51:08.309348",
-                "end_time": "2024-03-30 13:51:10.645480",
-                "commit_comment": "pop"
+                "start_time": "2024-04-02 10:25:04.681390",
+                "end_time": "2024-04-02 10:25:05.257541",
+                "commit_comment": "2654"
             }
         ]
     },
     "Coding": {
         "number": 0,
+        "Time spent on ": 0,
         "logs": [
             {
                 "start_time": "2024-03-30 13:26:50.701606",

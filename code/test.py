@@ -1,15 +1,14 @@
-from tkinter import *
-from tkinter import ttk
+from datetime import datetime
 
-root = Tk()
+def get_time_difference(start_time, end_time):
+  # Convert timestamps to datetime objects
+  start_datetime = datetime.strptime(start_time, "%Y-%m-%d %H:%M:%S.%f")
+  end_datetime = datetime.strptime(end_time, "%Y-%m-%d %H:%M:%S.%f")
+  # Calculate the difference as a timedelta object
+  time_delta = end_datetime - start_datetime
+  # Return the difference in seconds
+  return time_delta
 
-# Correct usage of StringVar
-my_string_var = StringVar()
-my_string_var.set("Hello, world!")
-
-print(type(my_string_var.get()))
-# Example widget using StringVar
-my_label = ttk.Label(root, textvariable=my_string_var)
-my_label.grid(row=0, column=0)
-
-root.mainloop()
+# Example usage with the provided timestamps
+time_difference = get_time_difference("2024-01-30 13:26:50.701606", "2024-03-30 13:26:52.596551")
+print({time_difference})
