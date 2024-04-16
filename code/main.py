@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
 import json 
-
+from time import sleep
 def main():
 
     #* open tasks.json --------------------------------
@@ -31,7 +31,7 @@ def main():
         
         if str(commit_common_text.get()) =="( New task )":
             print("They detected new task")
-            raise None
+            raise None # todo --------------------------------
 
         data = tasks
         new_log = {
@@ -39,6 +39,7 @@ def main():
         "end_time": task_end_time,
         "commit_comment": commit_common_text.get()
         }
+        
         x = Task_selected.get()
         data[Task_selected.get()]["logs"].append(new_log)
         data[x]["Time spent on "] = data[x]["Time spent on "] + get_time_difference(task_start_time, task_end_time)
@@ -75,7 +76,18 @@ def main():
         commit_common.grid(column=0,row=1)
 
         ttk.Button(popup_window, text="enter",command=lambda:log_data(TASKS,commit_common,popup_window)).grid(column=1,row=1)
+
+    def MinToHours(minutes):
+        return str(f" {minutes//60}:{minutes%60} ")
+    
+    def Increment_input_minutes(Value,Timer):
+        input_minutes.set(input_minutes.get() + Value)
+        Timer = ttk.Label(Pomondero_timer_frame, text=str(MinToHours(input_minutes.get())), font=("Arial", 20)).grid(column=0, row=0, rowspan=2, sticky="ns",padx=5,pady=5)
         
+    def update_time(Timer,input_minutes):
+        input_minutes.set( input_minutes.get() + 1)
+        Timer = ttk.Label(Pomondero_timer_frame, text=str(MinToHours(input_minutes.get())), font=("Arial", 20)).grid(column=0, row=0, rowspan=2, sticky="ns",padx=5,pady=5)
+        root.after(1000,lambda:update_time(Timer,input_minutes))
     # define screen --------------------------------
     root =  tk.Tk()
     Task_selected = tk.StringVar()
@@ -83,19 +95,25 @@ def main():
     root.configure(padx=0,pady=0)
     task_start_time = ""
     task_end_time = ""
+    input_minutes = tk.IntVar(value=45)
 
     # define frame --------------------------------
-    bottom_frame = ttk.Frame(root, name="time loging").grid(column=0,row=0)
-    ttk.OptionMenu(bottom_frame,Task_selected,"main_task",*list(TASKS.keys())).grid(column=0,row=1,padx=5,pady=5)
-    ttk.Button(bottom_frame, text="Start", command=start_timer ).grid(column=1,row=1)
+    bottom_frame = ttk.Frame(root, name="time loging").grid(column=0,row=1)
+    ttk.OptionMenu(bottom_frame,Task_selected,"main_task",*list(TASKS.keys())).grid(column=0,row=2,padx=5,pady=5)
+    ttk.Button(bottom_frame, text="Start", command=start_timer).grid(column=1,row=2)
+    # todo Implement alarms for Pomondero timer
 
-    # Pomodero --------------------------------
-    Pomodero_frame = ttk.Frame(root, name="timer").grid(column=1,row=0,padx=12,pady=6)
-    ttk.Entry(Pomodero_frame).grid(column=0,row=0,padx=5,pady=5) # TODO 
+    # Pomondero --------------------------------
+    Pomondero_timer_frame = ttk.Frame(root, name="pomondero_timer").grid(column=0,row=1, sticky="nsew", padx=8,pady=6)
+    Timer = ttk.Label(Pomondero_timer_frame, text=str(MinToHours(input_minutes.get())), font=("Arial", 20)).grid(column=0, row=0, rowspan=2, sticky="ns",padx=5,pady=5)
+    ttk.Button(text="^", width=3,command=lambda:Increment_input_minutes(5,Timer)).grid(column=1, row=0, sticky="nsew",)
+    ttk.Button(text="v", width=3,command=lambda:Increment_input_minutes(-5,Timer)).grid(column=1, row=1, sticky="nsew",)
 
+    root.after(1000,lambda:update_time(Timer,input_minutes))
     root.mainloop()
     #todo Break down larger functions into smaller,
     #todo The ability to add new tasks
     #* Close window automatically when clicked enter
 if __name__ == '__main__':
+    Previous = ""
     main()

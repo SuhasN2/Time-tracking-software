@@ -37,7 +37,7 @@
     },
     "Coding": {
         "number": 0,
-        "Time spent on ": 0,
+        "Time spent on ": 8.359786,
         "logs": [
             {
                 "start_time": "2024-03-30 13:26:50.701606",
@@ -48,6 +48,11 @@
                 "start_time": "2024-03-30 14:04:27.021608",
                 "end_time": "2024-03-30 14:04:28.252747",
                 "commit_comment": "test Minor improvements "
+            },
+            {
+                "start_time": "2024-04-02 15:28:37.033578",
+                "end_time": "2024-04-02 15:28:45.393364",
+                "commit_comment": "nvjkvnkfnvkl"
             }
         ]
     }

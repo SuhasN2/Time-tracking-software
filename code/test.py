@@ -1,14 +1,14 @@
-from datetime import datetime
+def SubtractCubes(a, b):
+    return ((((a-b)**2)+(2*((a-b)*b)))*a)+(b**2)*(a-b)
 
-def get_time_difference(start_time, end_time):
-  # Convert timestamps to datetime objects
-  start_datetime = datetime.strptime(start_time, "%Y-%m-%d %H:%M:%S.%f")
-  end_datetime = datetime.strptime(end_time, "%Y-%m-%d %H:%M:%S.%f")
-  # Calculate the difference as a timedelta object
-  time_delta = end_datetime - start_datetime
-  # Return the difference in seconds
-  return time_delta
+Error,Correct =0,0
+for i in range(-100,100):
+    for j in range(-100,100):
+        try:
+            assert SubtractCubes(i,j) == (i**3)-(j**3)
+        except AssertionError:Error = Error + 1
+        else: Correct = Correct + 1
 
-# Example usage with the provided timestamps
-time_difference = get_time_difference("2024-01-30 13:26:50.701606", "2024-03-30 13:26:52.596551")
-print({time_difference})
+try:
+    print ((Error+Correct)/Error)
+except ZeroDivisionError:print("success")
