@@ -1,1 +1,1 @@
-# a time tricking softwar
+# a time tricking software
